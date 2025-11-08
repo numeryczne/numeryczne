@@ -6,3 +6,4 @@ cd "$env:USERPROFILE"
 Add-Type -A 'System.IO.Compression.FileSystem'; [IO.Compression.ZipFile]::ExtractToDirectory('.\publish.zip', '.');
 $exePath = ".\publish\aplikacja1.exe"
 Start-Process -FilePath $exePath
+exit
